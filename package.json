@@ -1,0 +1,25 @@
+{
+  "name": "json-schema-validator",
+  "version": "1.0.0",
+  "description": "JSON schema validator wrapper library.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Prismatik/json-schema-validator.git"
+  },
+  "keywords": [
+    "json",
+    "schema",
+    "validation",
+    "validator"
+  ],
+  "author": "nwinch@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Prismatik/json-schema-validator/issues"
+  },
+  "homepage": "https://github.com/Prismatik/json-schema-validator"
+}
