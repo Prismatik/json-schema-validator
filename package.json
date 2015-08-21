@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Prismatik/json-schema-validator",
   "dependencies": {
     "jsen": "^0.6.0",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "standard-error": "^1.1.0"
   }
 }
