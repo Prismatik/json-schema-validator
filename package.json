@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Prismatik/json-schema-validator",
   "dependencies": {
-    "jsen": "^0.6.0"
+    "jsen": "^0.6.0",
+    "lodash": "^3.10.1"
   }
 }
