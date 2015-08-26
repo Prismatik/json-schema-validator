@@ -16,7 +16,7 @@ exports.mandatory = mandatory;
 exports.resource = resource;
 
 exports.validate = function(schemata, props, data) {
-  return new Promise((resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     var validator, res;
 
     try {
@@ -46,7 +46,7 @@ exports.validate = function(schemata, props, data) {
 };
 
 function definition(schemata) {
-  return (resource) => {
+  return function(resource) {
     resource = ['definitions', resource];
     var found = _.get(schemata, resource);
 
@@ -58,7 +58,7 @@ function definition(schemata) {
 }
 
 function schema(props) {
-  return (definition) => {
+  return function(definition) {
     var links = _.get(definition, 'links');
 
     if (!links) throw new jsonSchemaError(LINKS_NOT_FOUND);
@@ -66,7 +66,7 @@ function schema(props) {
     try { props = checkProps(props); } catch(e) { throw e; }
 
     var schemata = _.chain(links)
-      .find((a) => {
+      .find(function(a) {
         var method = strCompare(a.method, props.method);
         var url = strCompare(a.href, props.url);
 
@@ -85,7 +85,7 @@ function schema(props) {
 }
 
 function mandatory(schemata, resource) {
-  return (spec) => {
+  return function(spec) {
     var need = _.get(spec, 'required');
 
     if (!need) return schemata;
@@ -97,7 +97,7 @@ function mandatory(schemata, resource) {
 }
 
 function checkProps(props) {
-  REQUIRED_PROPS.forEach((prop) => {
+  REQUIRED_PROPS.forEach(function(prop) {
     if (!_.has(props, prop))
       throw new jsonSchemaError(format(MISSING_PROP, prop));
   });
@@ -106,7 +106,9 @@ function checkProps(props) {
 
 function resource(url) {
   var del = '/';
-  var str = _.first(url.split(del).filter((part) => part != ''));
+  var str = _.first(url.split(del).filter(function(part) {
+    return part != '';
+  }));
   if (isPlural(str)) str = str.slice(0, -1);
   return str;
 }
