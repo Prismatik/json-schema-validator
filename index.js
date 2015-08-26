@@ -15,12 +15,12 @@ exports.schema = schema;
 exports.mandatory = mandatory;
 exports.resource = resource;
 
-exports.validate = function(schemata, props, data) {
+exports.validate = function(schemata, attr, data) {
   return new Promise(function(resolve, reject) {
     var validator, res;
 
     try {
-      props = checkProps(props);
+      props = checkProps(attr);
       res = resource(props.url);
 
       var doc = _.compose(
