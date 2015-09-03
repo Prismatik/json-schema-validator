@@ -12,11 +12,15 @@
           "rel": "create",
           "schema": {
             "required": [
-              "name"
+              "name",
+              "email"
             ],
             "properties": {
               "name": {
                 "$ref": "#/definitions/test/definitions/name"
+               },
+               "email": {
+                "$ref": "#/definitions/test/definitions/email"
                }
             },
             "type": [
@@ -33,12 +37,21 @@
             "string"
           ],
           "example": "Testy test"
+        },
+        "email": {
+          "description": "test email",
+          "type": "string",
+          "format": "email",
+          "example": "bob@example.com"
         }
       },
       "description": "A grand test.  Perhaps the best test?",
       "properties": {
         "name": {
           "$ref": "#/definitions/test/definitions/name"
+        },
+        "email": {
+          "$ref": "#/definitions/test/definitions/email"
         }
       },
       "type": [

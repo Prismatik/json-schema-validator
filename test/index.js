@@ -120,6 +120,24 @@ describe('jsonSchema', function() {
         });
     });
 
+    it('must not return a single error', function() {
+      var data = {artist: {name: true, email: 'nope'}};
+
+      jsonSchema.validate(testSchema, this.props, data, {greedy: true})
+        .catch((e) => {
+          assert(e.fields.length != 1);
+        });
+    });
+
+    it('must return all errors', function() {
+      var data = {artist: {name: true, email: 'nope'}};
+
+      jsonSchema.validate(testSchema, this.props, data, {greedy: true})
+        .catch((e) => {
+          assert.equal(e.fields.length == 2);
+        });
+    });
+
     it('must return data if valid', function() {
       var data = {artist: {name: 'DJ Jiggles'}};
 

@@ -15,7 +15,7 @@ exports.schema = schema;
 exports.mandatory = mandatory;
 exports.resource = resource;
 
-exports.validate = function(schemata, attr, data) {
+exports.validate = function(schemata, attr, data, opts) {
   return new Promise(function(resolve, reject) {
     var validator, res;
 
@@ -29,7 +29,7 @@ exports.validate = function(schemata, attr, data) {
         definition(schemata)
       );
 
-      validator = jsen(doc(res));
+      validator = jsen(doc(res), opts || {});
     } catch(e) {
       reject(new jsonSchemaError(e.message));
     }
