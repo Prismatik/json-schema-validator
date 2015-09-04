@@ -19,6 +19,7 @@ exports.resource = resource;
 exports.decodeMethod = decodeMethod;
 exports.getParam = getParam;
 exports.urlCompare = urlCompare;
+exports.normalizeRef = normalizeRef;
 
 exports.validate = function(schemata, attr, data, opts) {
   return new Promise(function(resolve, reject) {
@@ -149,11 +150,16 @@ function urlCompare(source, target) {
   var decoded = decodeMethod(source);
 
   if (decoded.indexOf(splitter) != -1) {
-    var base = source.split(splitter)[0];
+    decoded = normalizeRef(decoded);
+    var base = decoded.split(splitter)[0];
     var param = getParam(decoded);
     source = base += ':' + param;
   }
 
   var re = pathToRegexp(source);
   return re.test(target);
+}
+
+function normalizeRef(source) {
+  return source.replace(/\{\(/g, '').replace(/\)\}/g, '');
 }
