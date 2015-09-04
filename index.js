@@ -14,6 +14,7 @@ exports.definition = definition;
 exports.schema = schema;
 exports.mandatory = mandatory;
 exports.resource = resource;
+exports.decodeMethod = decodeMethod;
 
 exports.validate = function(schemata, attr, data, opts) {
   return new Promise(function(resolve, reject) {
@@ -129,4 +130,8 @@ function namespaceData(resource, data) {
   var body = {};
   body[resource] = data;
   return body;
+}
+
+function decodeMethod(method) {
+  return decodeURIComponent(method);
 }

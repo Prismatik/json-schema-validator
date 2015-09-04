@@ -147,6 +147,21 @@ describe('jsonSchema', function() {
         });
     });
   });
+
+  describe('.decodeMethod', function() {
+    before(function() {
+      this.encoded = '%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fid';
+      this.decoded = '#/definitions/user/definitions/id';
+    });
+
+    it('must not return undecoded method', function() {
+      assert(jsonSchema.decodeMethod(this.encoded) != this.encoded);
+    });
+
+    it('must return decoded method', function() {
+      assert(jsonSchema.decodeMethod(this.encoded) == this.decoded);
+    });
+  });
 });
 
 function getSchema(schema, props) {
