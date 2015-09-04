@@ -162,6 +162,20 @@ describe('jsonSchema', function() {
       assert(jsonSchema.decodeMethod(this.encoded) == this.decoded);
     });
   });
+
+  describe('.getParam', function() {
+    before(function() {
+      this.path = '#/definitions/user/definitions/id';
+    });
+
+    it('must not return full path', function() {
+      assert(jsonSchema.getParam(this.path) != this.path);
+    });
+
+    it('must return param', function() {
+      assert(jsonSchema.getParam(this.path) == 'id');
+    });
+  })
 });
 
 function getSchema(schema, props) {

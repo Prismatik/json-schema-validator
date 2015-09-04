@@ -1,3 +1,4 @@
+var basename = require('path').basename;
 var format = require('util').format;
 var jsen = require('jsen');
 var _ = require('lodash');
@@ -15,6 +16,7 @@ exports.schema = schema;
 exports.mandatory = mandatory;
 exports.resource = resource;
 exports.decodeMethod = decodeMethod;
+exports.getParam = getParam;
 
 exports.validate = function(schemata, attr, data, opts) {
   return new Promise(function(resolve, reject) {
@@ -134,4 +136,8 @@ function namespaceData(resource, data) {
 
 function decodeMethod(method) {
   return decodeURIComponent(method);
+}
+
+function getParam(method) {
+  return basename(method);
 }
