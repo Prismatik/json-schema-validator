@@ -147,6 +147,46 @@ describe('jsonSchema', function() {
         });
     });
   });
+
+  describe('.decodeMethod', function() {
+    before(function() {
+      this.encoded = '%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fid';
+      this.decoded = '#/definitions/user/definitions/id';
+    });
+
+    it('must not return undecoded method', function() {
+      assert(jsonSchema.decodeMethod(this.encoded) != this.encoded);
+    });
+
+    it('must return decoded method', function() {
+      assert(jsonSchema.decodeMethod(this.encoded) == this.decoded);
+    });
+  });
+
+  describe('.getParam', function() {
+    before(function() {
+      this.path = '#/definitions/user/definitions/id';
+    });
+
+    it('must not return full path', function() {
+      assert(jsonSchema.getParam(this.path) != this.path);
+    });
+
+    it('must return param', function() {
+      assert(jsonSchema.getParam(this.path) == 'id');
+    });
+  });
+
+  describe('.urlCompare', function() {
+    before(function() {
+      this.source = '/users/#/definitions/user/definitions/id';
+      this.target = '/users/abc123';
+    });
+
+    it('must return true', function() {
+      assert(jsonSchema.urlCompare(this.source, this.target));
+    });
+  });
 });
 
 function getSchema(schema, props) {
