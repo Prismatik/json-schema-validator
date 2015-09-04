@@ -1,6 +1,6 @@
 {
   "name": "json-schema-validator",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "JSON schema validator wrapper library.",
   "main": "index.js",
   "scripts": {
