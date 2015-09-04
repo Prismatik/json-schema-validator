@@ -175,7 +175,18 @@ describe('jsonSchema', function() {
     it('must return param', function() {
       assert(jsonSchema.getParam(this.path) == 'id');
     });
-  })
+  });
+
+  describe('.urlCompare', function() {
+    before(function() {
+      this.source = '/users/#/definitions/user/definitions/id';
+      this.target = '/users/abc123';
+    });
+
+    it('must return true', function() {
+      assert(jsonSchema.urlCompare(this.source, this.target));
+    });
+  });
 });
 
 function getSchema(schema, props) {

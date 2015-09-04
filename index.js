@@ -2,6 +2,7 @@ var basename = require('path').basename;
 var format = require('util').format;
 var jsen = require('jsen');
 var _ = require('lodash');
+var pathToRegexp = require('path-to-regexp');
 var jsonSchemaError = require('./libs/json_schema_error');
 
 var DEFINITION_NOT_FOUND = 'Could not find \'%s\'.';
@@ -17,6 +18,7 @@ exports.mandatory = mandatory;
 exports.resource = resource;
 exports.decodeMethod = decodeMethod;
 exports.getParam = getParam;
+exports.urlCompare = urlCompare;
 
 exports.validate = function(schemata, attr, data, opts) {
   return new Promise(function(resolve, reject) {
@@ -71,7 +73,7 @@ function schema(props) {
     var schemata = _.chain(links)
       .find(function(a) {
         var method = strCompare(a.method, props.method);
-        var url = strCompare(a.href, props.url);
+        var url = urlCompare(a.href, props.url);
 
         return method && url;
       })
@@ -140,4 +142,18 @@ function decodeMethod(method) {
 
 function getParam(method) {
   return basename(method);
+}
+
+function urlCompare(source, target) {
+  var splitter = '#';
+  var decoded = decodeMethod(source);
+
+  if (decoded.indexOf(splitter) != -1) {
+    var base = source.split(splitter)[0];
+    var param = getParam(decoded);
+    source = base += ':' + param;
+  }
+
+  var re = pathToRegexp(source);
+  return re.test(target);
 }
