@@ -179,12 +179,25 @@ describe('jsonSchema', function() {
 
   describe('.urlCompare', function() {
     before(function() {
-      this.source = '/users/#/definitions/user/definitions/id';
+      this.source = '/users/{(%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fid)}';
       this.target = '/users/abc123';
     });
 
     it('must return true', function() {
       assert(jsonSchema.urlCompare(this.source, this.target));
+    });
+  });
+
+  describe('.normalizeRef', function() {
+    it('must not remove unintended characters', function() {
+      var source = 'hey{(';
+      assert(jsonSchema.normalizeRef(source).indexOf('hey') != -1);
+    });
+
+    it('must remove characters', function() {
+      var source = 'hey{(there)}you!';
+      assert(jsonSchema.normalizeRef(source).indexOf('{(') < 0);
+      assert(jsonSchema.normalizeRef(source).indexOf(')}') < 0);
     });
   });
 });
