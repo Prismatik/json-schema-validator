@@ -120,7 +120,7 @@ function resource(url) {
 }
 
 function isPlural(str) {
-  return str.endsWith('s');
+  return str.indexOf('s', str.length - 1) !== -1;
 }
 
 function toUpper(str) {
